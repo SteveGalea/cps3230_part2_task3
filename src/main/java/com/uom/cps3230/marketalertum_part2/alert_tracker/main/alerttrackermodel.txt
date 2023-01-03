@@ -1,0 +1,16 @@
+States:
+- viewingAlerts
+- viewingLatestAlerts
+
+Variables:
+- viewingAlerts (bool)
+- viewingLatestAlerts (bool)
+- noOfAlerts (int)
+
+Transitions:
+viewingAlerts -> viewingAlerts | createAlert [noOfAlerts < 5] | viewingAlerts = true; noOfAlerts++;
+viewingAlerts -> viewingLatestAlerts | createAlert [noOfAlerts >= 5] | viewingAlerts = false; viewingLatestAlerts=true; noOfAlerts++;
+viewingAlerts -> viewingAlerts | deleteAlerts | viewingAlerts = true; noOfAlerts = 0;
+viewingLatestAlerts -> viewingLatestAlerts | createAlert | viewingLatestAlerts = true; noOfAlerts ++;
+viewingLatestAlerts -> viewingAlerts | deleteAlerts | viewingAlerts = true; viewingLatestAlerts=false; noOfAlerts = 0;
+

@@ -159,7 +159,7 @@ public class MarketAlertUmSystem {
 		return badViewingAlerts;
 	}
 
-	public void UserValidLogin() {
+	public void login() {
 		System.out.print("Logging In Method: ");
 		marketAlertsPageObject.logIn();
 
@@ -180,7 +180,7 @@ public class MarketAlertUmSystem {
 		loggedOut = false;
 	}
 
-	public void UserLoggedOut() {
+	public void logout() {
 		System.out.print("Logging Out Method: ");
 		marketAlertsPageObject.logOut();
 
@@ -200,7 +200,7 @@ public class MarketAlertUmSystem {
 		badViewingAlerts = false;
 	}
 
-	public void UserViewingAlerts() {
+	public void view() {
 		System.out.print("Viewing Alerts Method: ");
 		marketAlertsPageObject.viewAlerts();
 

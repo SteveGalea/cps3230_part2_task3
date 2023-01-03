@@ -1,0 +1,42 @@
+States:
+- loggedOut(starting state),
+- loggedIn,
+- viewingAlerts
+- tooManyLogOuts,
+- tooManyLogIns,
+- badViewingAlerts,
+- viewingLatestAlerts
+
+Variables:
+- loggedIn (bool)
+- viewingAlerts (bool)
+- tooManyLogOuts (bool)
+- tooManyLogIns (bool)
+- badViewingAlerts (bool)
+- loggedOut (bool) -- split model
+------ viewingLatestAlerts (bool) -- partial alert viewing considered as a bad state
+
+Transitions:
+- loggedOut -> loggedIn \ login \ loggedIn = true; +others are false
+- loggedOut -> tooManyLogOuts \ logout \ tooManyLogOuts = true; + others are false
+- loggedOut -> badViewingAlerts \ view \ badViewingAlerts = true; +others are false
+
+- badViewingAlerts -> loggedIn \ login \ loggedIn = true; +others are false
+- badViewingAlerts -> tooManyLogOuts \ logout \ tooManyLogOuts = true; + others are false
+- badViewingAlerts -> badViewingAlerts \ view \ badViewingAlerts = true; +others are false
+
+- tooManyLogOuts -> loggedIn \ login \ loggedIn = true; +others are false
+- tooManyLogOuts -> tooManyLogOuts \ logout \ tooManyLogOuts = true; + others are false
+- tooManyLogOuts -> badViewingAlerts \ view \ badViewingAlerts = true; +others are false
+
+- loggedIn -> tooManyLogIns \ login \ tooManyLogIns=true; loggedIn = true; + others false
+- loggedIn -> loggedOut \ logout \ loggedOut = true; + others = false
+- loggedIn -> viewingAlerts \ view \ loggedIn=true; viewingAlerts = true; + others = false
+
+- tooManyLogIns -> tooManyLogIns \ login \ tooManyLogIns=true; loggedIn = true; + others false
+- tooManyLogIns -> loggedOut \ logout \ loggedOut = true; + others = false
+- tooManyLogIns -> viewingAlerts \ view \ loggedIn=true; viewingAlerts = true; + others = false
+
+- viewingAlerts -> tooManyLogIns \ login \ tooManyLogIns=true; loggedIn = true; + others false
+- viewingAlerts -> loggedOut \ logout \ loggedOut = true; + others = false
+- viewingAlerts -> viewingAlerts \ view \ loggedIn=true; viewingAlerts = true; + others = false

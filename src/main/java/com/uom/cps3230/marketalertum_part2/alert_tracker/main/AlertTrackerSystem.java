@@ -12,7 +12,7 @@ public class AlertTrackerSystem {
 //	private static int noOfAlerts = 0; // if running with main uncomment
 
 	//Events
-	public boolean AlertCreated(){
+	public boolean createAlert(){
 		addAlert();
 		noOfAlerts ++;
 		if(viewingAlerts || viewingLatestAlerts){
@@ -28,8 +28,8 @@ public class AlertTrackerSystem {
 		}
 	}
 
-	public boolean AlertsDeleted(){
-		deleteAlerts();
+	public boolean deleteAlerts(){
+		removeAlerts();
 		noOfAlerts = 0;
 		if(viewingAlerts || viewingLatestAlerts){
 //			if(viewingLatestAlerts && !viewingAlerts) {
@@ -108,7 +108,7 @@ public class AlertTrackerSystem {
 	}
 
 
-	public void deleteAlerts(){
+	public void removeAlerts(){
 		System.out.print("deleteAlert Method: ");
 		requestMaker = new RequestMaker();
     	try{

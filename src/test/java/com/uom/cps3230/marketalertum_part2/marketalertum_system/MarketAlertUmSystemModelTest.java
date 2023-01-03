@@ -48,7 +48,7 @@ public class MarketAlertUmSystemModelTest implements FsmModel {
 
 	public @Action void logInWithValidUser() {
 		//update system
-		systemUnderTest.UserValidLogin();
+		systemUnderTest.login();
 
 		//update model
 		loggedIn = true;
@@ -110,7 +110,7 @@ public class MarketAlertUmSystemModelTest implements FsmModel {
 	}
 	public @Action void logOutUser() {
 		//update system
-		systemUnderTest.UserLoggedOut();
+		systemUnderTest.logout();
 
 		//update model
 		loggedOut = true;
@@ -147,6 +147,7 @@ public class MarketAlertUmSystemModelTest implements FsmModel {
 
 		}
 
+		//assertions model vs system
 		Assert.assertEquals("The model's Logged Out State tone state doesn't match the SUT's state.", loggedOut, systemUnderTest.isLoggedOut());
 		Assert.assertEquals("The model's Logged In State doesn't match the SUT's state.", loggedIn, systemUnderTest.isLoggedIn());
 		Assert.assertEquals("The model's Too Many Log Outs State doesn't match the SUT's state.", tooManyLogOuts, systemUnderTest.isTooManyLogOuts());
@@ -165,7 +166,7 @@ public class MarketAlertUmSystemModelTest implements FsmModel {
 	}
 	public @Action void viewUserAlerts() {
 		//update system
-		systemUnderTest.UserViewingAlerts();
+		systemUnderTest.view();
 
 		//update model
 		switch (getState()){
@@ -198,7 +199,6 @@ public class MarketAlertUmSystemModelTest implements FsmModel {
 				loggedIn = true;
 				tooManyLogOuts = false;
 				tooManyLogIns = false;
-				// if in viewingAlerts, already in correct model state- no need to update
 				break;
 
 			case BAD_VIEWING_ALERTS:
@@ -208,10 +208,10 @@ public class MarketAlertUmSystemModelTest implements FsmModel {
 				loggedIn = false;
 				tooManyLogOuts = false;
 				tooManyLogIns = false;
-				// if in badViewingAlerts, already in correct model state- no need to update
 				break;
 		}
 
+		//assertions model vs system
 		Assert.assertEquals("The model's Logged Out State doesn't match the SUT's state.", loggedOut, systemUnderTest.isLoggedOut());
 		Assert.assertEquals("The model's Logged In State doesn't match the SUT's state.", loggedIn, systemUnderTest.isLoggedIn());
 		Assert.assertEquals("The model's Too Many Log Outs State doesn't match the SUT's state.", tooManyLogOuts, systemUnderTest.isTooManyLogOuts());
